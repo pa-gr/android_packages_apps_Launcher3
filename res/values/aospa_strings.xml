@@ -103,4 +103,7 @@
     <!-- Faster statusbar expansion -->
     <string name="faster_sb_expansion">Faster status bar expansion</string>
 
+    <!-- All apps themed icons -->
+    <string name="pref_allapps_themed_icons">Themed icons in drawer</string>
+
 </resources>
