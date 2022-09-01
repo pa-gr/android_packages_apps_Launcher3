@@ -314,7 +314,7 @@ public class FloatingHeaderView extends LinearLayout implements
 
         mTabLayout.setTranslationY(mTranslationY);
 
-        int clipHeight = mHeaderTopPadding - getPaddingBottom() * 2;
+        int clipHeight = mHeaderTopPadding - getPaddingBottom();
         mRVClip.top = mTabsHidden ? clipHeight : 0;
         mHeaderClip.top = clipHeight;
         // clipping on a draw might cause additional redraw
