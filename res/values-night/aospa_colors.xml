@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2020 The Android Open Source Project
+<!--
+     Copyright (C) 2023 The LibreMobileOS Foundation
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -13,10 +14,8 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:height="24dp"
-    android:width="24dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
-    <path android:fillColor="?android:attr/colorAccent" android:pathData="M5,13H19V11H5M3,17H17V15H3M7,7V9H21V7" />
-</vector>
+<resources>
+
+    <color name="mid_clear_all_background_color">@*android:color/system_neutral2_800</color>
+
+</resources>

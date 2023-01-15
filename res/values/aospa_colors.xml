@@ -21,4 +21,6 @@
     <!-- Recents overview background when blur is enabled. (20% black) -->
     <color name="overview_blur_scrim">#33000000</color>
 
+    <color name="mid_clear_all_background_color">@*android:color/system_neutral2_50</color>
+
 </resources>
