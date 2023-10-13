@@ -84,12 +84,15 @@
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_clear_all"
             android:text="@string/recents_clear_all"
-            android:theme="@style/ThemeControlHighlightWorkspaceColor" />
+            android:theme="@style/ThemeControlHighlightWorkspaceColor"
+            android:visibility="gone" />
 
         <Space
+            android:id="@+id/clear_all_space"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:visibility="gone" />
 
         <Space
             android:id="@+id/oav_three_button_space"

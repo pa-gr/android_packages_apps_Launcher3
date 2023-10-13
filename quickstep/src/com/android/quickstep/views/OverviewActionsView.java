@@ -143,6 +143,11 @@ public class OverviewActionsView<T extends OverlayUICallbacks> extends FrameLayo
         mSplitButton = findViewById(R.id.action_split);
         mSplitButton.setOnClickListener(this);
 
+        if (Utilities.showClearAllInOverview(getContext())) {
+            findViewById(R.id.action_clear_all).setVisibility(VISIBLE);
+            findViewById(R.id.clear_all_space).setVisibility(VISIBLE);
+        }
+
         if (Utilities.isGSAEnabled(getContext())) {
             View lens = findViewById(R.id.action_lens);
             lens.setOnClickListener(this);

@@ -26,6 +26,7 @@ import com.android.launcher3.DeviceProfile;
 import com.android.launcher3.Launcher;
 import com.android.launcher3.LauncherState;
 import com.android.launcher3.R;
+import com.android.launcher3.Utilities;
 import com.android.launcher3.util.DisplayController;
 import com.android.launcher3.util.Themes;
 import com.android.quickstep.util.LayoutUtils;
@@ -107,7 +108,11 @@ public class OverviewState extends LauncherState {
 
     @Override
     public int getVisibleElements(Launcher launcher) {
-        return OVERVIEW_ACTIONS;
+        int elements = OVERVIEW_ACTIONS;
+        if (!Utilities.showClearAllInOverview(launcher)) {
+            elements |= CLEAR_ALL_BUTTON;
+        }
+        return elements;
     }
 
     @Override

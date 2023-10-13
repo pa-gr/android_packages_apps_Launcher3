@@ -54,9 +54,12 @@
     <string name="category_icon">Icons</string>
     <string name="category_misc">Misc</string>
     <string name="category_google">Google</string>
+    <string name="category_recents">Recents</string>
 
     <!-- Recents -->
     <string name="action_lens">Lens</string>
+    <string name="overview_clear_all_title">Show clear all button at bottom</string>
+    <string name="overview_clear_all_summary">Move clear all button to the bottom of recents</string>
 
     <!-- Hotseat searchbar -->
     <string name="label_search">Search</string>
