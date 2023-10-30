@@ -103,4 +103,7 @@
     <!-- Font size -->
     <string name="font_size_title">Font size</string>
 
+    <!-- Faster statusbar expansion -->
+    <string name="faster_sb_expansion">Faster status bar expansion</string>
+
 </resources>
