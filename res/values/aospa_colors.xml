@@ -17,4 +17,8 @@
 
 <resources>
     <color name="disabled_text_color">#66000000</color>
+
+    <!-- Recents overview background when blur is enabled. (20% black) -->
+    <color name="overview_blur_scrim">#33000000</color>
+
 </resources>
