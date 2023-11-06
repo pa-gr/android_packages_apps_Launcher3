@@ -85,15 +85,12 @@
             android:layout_height="36dp"
             android:tooltipText="@string/recents_clear_all"
             android:foreground="@drawable/ic_clear_all"
-            android:foregroundGravity="center"
-            android:visibility="gone" />
+            android:foregroundGravity="center" />
 
         <Space
-            android:id="@+id/clear_all_space"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_weight="1"
-            android:visibility="gone" />
+            android:layout_weight="1" />
 
         <Space
             android:id="@+id/oav_three_button_space"

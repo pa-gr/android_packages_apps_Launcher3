@@ -24,7 +24,6 @@ import android.graphics.Color;
 import com.android.launcher3.BaseDraggingActivity;
 import com.android.launcher3.DeviceProfile;
 import com.android.launcher3.Launcher;
-import com.android.launcher3.Utilities;
 import com.android.launcher3.allapps.AllAppsTransitionController;
 import com.android.quickstep.util.LayoutUtils;
 import com.android.quickstep.views.DesktopTaskView;
@@ -73,13 +72,9 @@ public class BackgroundAppState extends OverviewState {
 
     @Override
     public int getVisibleElements(Launcher launcher) {
-        int elements = super.getVisibleElements(launcher)
+        return super.getVisibleElements(launcher)
                 & ~OVERVIEW_ACTIONS
                 & ~VERTICAL_SWIPE_INDICATOR;
-        if (!Utilities.showClearAllInOverview(launcher)) {
-            elements &= ~CLEAR_ALL_BUTTON;
-        }
-        return elements;
     }
 
     @Override

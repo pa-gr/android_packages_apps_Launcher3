@@ -23,7 +23,6 @@ import android.graphics.Rect;
 import com.android.launcher3.BaseDraggingActivity;
 import com.android.launcher3.Launcher;
 import com.android.launcher3.LauncherState;
-import com.android.launcher3.Utilities;
 import com.android.launcher3.config.FeatureFlags;
 import com.android.quickstep.views.RecentsView;
 
@@ -47,11 +46,7 @@ public class OverviewModalTaskState extends OverviewState {
 
     @Override
     public int getVisibleElements(Launcher launcher) {
-        int elements = OVERVIEW_ACTIONS;
-        if (!Utilities.showClearAllInOverview(launcher)) {
-            elements |= CLEAR_ALL_BUTTON;
-        }
-        return elements;
+        return OVERVIEW_ACTIONS;
     }
 
     @Override
