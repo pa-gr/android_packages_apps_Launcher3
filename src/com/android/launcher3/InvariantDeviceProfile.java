@@ -128,6 +128,7 @@ public class InvariantDeviceProfile implements OnSharedPreferenceChangeListener 
      */
     public int numRows;
     public int numColumns;
+    public int numSearchContainerRows;
     public int numSearchContainerColumns;
 
     /**
@@ -365,6 +366,7 @@ public class InvariantDeviceProfile implements OnSharedPreferenceChangeListener 
         GridOption closestProfile = displayOption.grid;
         numRows = closestProfile.numRows;
         numColumns = closestProfile.numColumns;
+        numSearchContainerRows = closestProfile.numSearchContainerRows;
         numSearchContainerColumns = closestProfile.numSearchContainerColumns;
         dbFile = closestProfile.dbFile;
         defaultLayoutId = closestProfile.defaultLayoutId;
@@ -489,8 +491,9 @@ public class InvariantDeviceProfile implements OnSharedPreferenceChangeListener 
 
     private Object[] toModelState() {
         return new Object[]{
-                numColumns, numRows, numSearchContainerColumns, numDatabaseHotseatIcons,
-                iconPack, iconBitmapSize, fillResIconDpi, numDatabaseAllAppsColumns, dbFile};
+                numColumns, numRows, numSearchContainerRows, numSearchContainerColumns,
+                numDatabaseHotseatIcons, iconPack, iconBitmapSize, fillResIconDpi,
+                numDatabaseAllAppsColumns, dbFile};
     }
 
     private void onConfigChanged(Context context) {
@@ -801,6 +804,7 @@ public class InvariantDeviceProfile implements OnSharedPreferenceChangeListener 
         public final String name;
         public final int numRows;
         public final int numColumns;
+        public final int numSearchContainerRows;
         public final int numSearchContainerColumns;
         public final int deviceCategory;
 
@@ -834,6 +838,8 @@ public class InvariantDeviceProfile implements OnSharedPreferenceChangeListener 
             name = a.getString(R.styleable.GridDisplayOption_name);
             numRows = a.getInt(R.styleable.GridDisplayOption_numRows, 0);
             numColumns = a.getInt(R.styleable.GridDisplayOption_numColumns, 0);
+            numSearchContainerRows = a.getInt(
+                    R.styleable.GridDisplayOption_numSearchContainerRows, 1);
             numSearchContainerColumns = a.getInt(
                     R.styleable.GridDisplayOption_numSearchContainerColumns, numColumns);
 
