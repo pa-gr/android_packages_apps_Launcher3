@@ -232,6 +232,7 @@ public class QuickstepLauncher extends Launcher implements RecentsViewContainer 
     // Will be updated when dragging from taskbar.
     private @Nullable UnfoldTransitionProgressProvider mUnfoldTransitionProgressProvider;
     private @Nullable LauncherUnfoldAnimationController mLauncherUnfoldAnimationController;
+    private @Nullable StatusBarTouchController mStatusBarTouchController;
 
     private SplitSelectStateController mSplitSelectStateController;
     private SplitWithKeyboardShortcutController mSplitWithKeyboardShortcutController;
@@ -544,6 +545,10 @@ public class QuickstepLauncher extends Launcher implements RecentsViewContainer 
             mSplitSelectStateController.onDestroy();
         }
 
+        if (mStatusBarTouchController != null) {
+            mStatusBarTouchController.onDestroy();
+        }
+
         super.onDestroy();
         mHotseatPredictionController.destroy();
         mSplitWithKeyboardShortcutController.onDestroy();
@@ -632,7 +637,8 @@ public class QuickstepLauncher extends Launcher implements RecentsViewContainer 
         }
 
         if (!getDeviceProfile().isMultiWindowMode) {
-            list.add(new StatusBarTouchController(this));
+            mStatusBarTouchController = new StatusBarTouchController(this);
+            list.add(mStatusBarTouchController);
         }
 
         list.add(new LauncherTaskViewController(this));
