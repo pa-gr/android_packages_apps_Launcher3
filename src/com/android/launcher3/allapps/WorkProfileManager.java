@@ -51,7 +51,6 @@ import com.android.launcher3.workprofile.PersonalWorkSlidingTabStrip;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.function.Predicate;
 
@@ -277,22 +276,6 @@ public class WorkProfileManager implements PersonalWorkSlidingTabStrip.OnActiveP
      * Filter to only display apps in managed profile in work tab.
      */
     private Predicate<ItemInfo> ofWorkProfileUser(UserManager um) {
-        return info -> info != null && isManagedProfile(um, info.user.hashCode());
-    }
-
-
-    private static boolean isManagedProfile(UserManager um, int userId) {
-        try {
-            // isManagedProfile is a @SystemApi.
-            String methodName = "isManagedProfile";
-            Method method = um.getClass().getDeclaredMethod(methodName, int.class);
-            Object result = method.invoke(um, userId);
-            if (result instanceof Boolean) {
-                return (boolean) result;
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Failed to call #isManagedProfile via reflection from Launcher");
-        }
-        return false;
+        return info -> info != null && um.isManagedProfile(info.user.hashCode());
     }
 }
