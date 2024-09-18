@@ -316,3 +316,13 @@ flag {
     description: "Search bar persists at the bottom of the screen across Launcher states"
     bug: "346408388"
 }
+
+flag {
+    name: "coordinate_workspace_scale"
+    namespace: "launcher"
+    description: "Ensure that the workspace and hotseat scale doesn't conflict and transitions smoothly between launching and closing apps"
+    bug: "366403487"
+    metadata {
+      purpose: PURPOSE_BUGFIX
+    }
+}

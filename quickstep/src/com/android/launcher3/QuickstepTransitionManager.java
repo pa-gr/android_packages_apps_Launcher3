@@ -120,6 +120,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.ColorUtils;
 
+import com.android.app.animation.Animations;
 import com.android.internal.jank.Cuj;
 import com.android.launcher3.DeviceProfile.OnDeviceProfileChangeListener;
 import com.android.launcher3.LauncherAnimationRunner.RemoteAnimationFactory;
@@ -566,23 +567,45 @@ public class QuickstepTransitionManager implements OnDeviceProfileChangeListener
         } else {
             List<View> viewsToAnimate = new ArrayList<>();
             Workspace<?> workspace = mLauncher.getWorkspace();
-            workspace.forEachVisiblePage(
-                    view -> viewsToAnimate.add(((CellLayout) view).getShortcutsAndWidgets()));
+            if (Flags.coordinateWorkspaceScale()) {
+                viewsToAnimate.add(workspace);
+            } else {
+                workspace.forEachVisiblePage(
+                        view -> viewsToAnimate.add(((CellLayout) view).getShortcutsAndWidgets()));
+            }
 
+            Hotseat hotseat = mLauncher.getHotseat();
             // Do not scale hotseat as a whole when taskbar is present, and scale QSB only if it's
             // not inline.
             if (mDeviceProfile.isTaskbarPresent) {
                 if (!mDeviceProfile.isQsbInline) {
-                    viewsToAnimate.add(mLauncher.getHotseat().getQsb());
+                    viewsToAnimate.add(hotseat.getQsb());
                 }
             } else {
-                viewsToAnimate.add(mLauncher.getHotseat());
+                viewsToAnimate.add(hotseat);
             }
 
             viewsToAnimate.forEach(view -> {
                 view.setLayerType(View.LAYER_TYPE_HARDWARE, null);
 
-                ObjectAnimator scaleAnim = ObjectAnimator.ofFloat(view, SCALE_PROPERTY, scales)
+                float[] scale = scales;
+                if (Flags.coordinateWorkspaceScale()) {
+                    // Start the animation from the current value, instead of assuming the views are
+                    // in their resting state, so interrupted animations merge seamlessly.
+                    // TODO(b/367591368): ideally these animations would be refactored to be
+                    //  controlled centrally so each instances doesn't need to care about this
+                    //  coordination.
+                    scale = new float[]{view.getScaleX(), scales[1]};
+
+                    // Cancel any ongoing animations. This is necessary to avoid a conflict between
+                    // e.g. the unfinished animation triggered when closing an app back to Home and
+                    // this animation caused by a launch.
+                    Animations.Companion.cancelOngoingAnimation(view);
+                    // Make sure to cache the current animation, so it can be properly interrupted.
+                    Animations.Companion.setOngoingAnimation(view, launcherAnimator);
+                }
+
+                ObjectAnimator scaleAnim = ObjectAnimator.ofFloat(view, SCALE_PROPERTY, scale)
                         .setDuration(CONTENT_SCALE_DURATION);
                 scaleAnim.setInterpolator(DECELERATE_1_5);
                 launcherAnimator.play(scaleAnim);
@@ -612,6 +635,11 @@ public class QuickstepTransitionManager implements OnDeviceProfileChangeListener
                 viewsToAnimate.forEach(view -> {
                     SCALE_PROPERTY.set(view, 1f);
                     view.setLayerType(View.LAYER_TYPE_NONE, null);
+
+                    if (Flags.coordinateWorkspaceScale()) {
+                        // Reset the cached animation.
+                        Animations.Companion.setOngoingAnimation(view, null /* animation */);
+                    }
                 });
                 if (scrimEnabled) {
                     mLauncher.getScrimView().setBackgroundColor(Color.TRANSPARENT);
