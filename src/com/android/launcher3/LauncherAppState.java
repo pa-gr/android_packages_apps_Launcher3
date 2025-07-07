@@ -255,6 +255,11 @@ public class LauncherAppState implements SafeCloseable {
         return mIsSafeModeEnabled;
     }
 
+    public void clearIconCache() {
+        MODEL_EXECUTOR.execute(() -> mIconCache.clearDb());
+        mModel.forceReload();
+    }
+
     /**
      * Shorthand for {@link #getInvariantDeviceProfile()}
      */
@@ -289,6 +294,7 @@ public class LauncherAppState implements SafeCloseable {
             if (Themes.KEY_THEMED_ICONS.equals(key)) {
                 mIconProvider.setIconThemeSupported(Themes.isThemedIconEnabled(mContext));
                 verifyIconChanged();
+                clearIconCache();
             }
         }
     }

@@ -635,6 +635,11 @@ public class IconCache extends BaseIconCache {
         return mIconProvider.getSystemStateForPackage(mSystemState, packageName);
     }
 
+    public synchronized void clearDb() {
+        clearMemoryCache();
+        mIconDb.clear();
+    }
+
     /**
      * Interface for receiving itemInfo with high-res icon.
      */

@@ -53,6 +53,7 @@ import androidx.annotation.UiThread;
 import androidx.annotation.VisibleForTesting;
 
 import com.android.launcher3.InvariantDeviceProfile.DeviceType;
+import com.android.launcher3.LauncherAppState;
 import com.android.launcher3.LauncherPrefs;
 import com.android.launcher3.Utilities;
 import com.android.launcher3.logging.FileLog;
@@ -241,6 +242,8 @@ public class DisplayController implements ComponentCallbacks, SafeCloseable {
         boolean reconfigure = false;
         if (ACTION_OVERLAY_CHANGED.equals(intent.getAction())) {
             reconfigure = true;
+            Log.d(TAG, "Overlays changed, clearing icon cache");
+            LauncherAppState.getInstance(mContext).clearIconCache();
         } else if (ACTION_CONFIGURATION_CHANGED.equals(intent.getAction())) {
             Configuration config = mContext.getResources().getConfiguration();
             reconfigure = mInfo.fontScale != config.fontScale
