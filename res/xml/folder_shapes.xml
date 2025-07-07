@@ -28,6 +28,6 @@
     <RoundedSquare launcher:folderIconRadius="0" />
 
     <TearDrop launcher:folderIconRadius="0.3" />
-    <Squircle launcher:folderIconRadius="0.2" />
+    <Squircle launcher:folderIconRadius="0.34" />
 
 </shapes>
