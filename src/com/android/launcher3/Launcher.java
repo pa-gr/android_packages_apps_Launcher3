@@ -1247,8 +1247,7 @@ public class Launcher extends StatefulActivity<LauncherState>
             mIsKeyboardShown = false;
         } else if (!mPrevLauncherState.equals(ALL_APPS) && state.equals(ALL_APPS)
                 && mSharedPrefs.getBoolean(KEY_DRAWER_OPEN_KEYBOARD, false)) {
-            getAppsView().getSearchUiManager().focusSearchField();
-            mIsKeyboardShown = true;
+            mIsKeyboardShown = getAppsView().getSearchUiManager().focusSearchField();
         }
 
         updateDisallowBack();
@@ -1293,7 +1292,8 @@ public class Launcher extends StatefulActivity<LauncherState>
             mAllAppsSessionLogId = null;
         } else if (ALL_APPS.equals(state) && !mIsKeyboardShown
                 && mSharedPrefs.getBoolean(KEY_DRAWER_OPEN_KEYBOARD, false)) {
-            getAppsView().getSearchUiManager().focusSearchField();
+            // double check in case it didn't work in onStateSetStart()
+            mIsKeyboardShown = getAppsView().getSearchUiManager().focusSearchField();
         }
 
         // Set screen title for Talkback
